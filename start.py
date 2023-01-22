@@ -7,12 +7,13 @@ from playsound import playsound
 def start(): # Define a functino to start the code
     video = cv2.VideoCapture("video.mp4") # Get the video
     totalFrames = int(video.get(cv2.CAP_PROP_FRAME_COUNT)) # Get video total frames
-    fps = int(video.get(cv2.CAP_PROP_FPS)) / 10 # Calculate the fps that we want (30 / 5 = 6 fps)
+    fps = int(video.get(cv2.CAP_PROP_FPS)) / 5 # Calculate the fps that we want (30 / 5 = 6 fps)
     interval = 1 / fps # Calculate the interval between frames in seconds
-    playsound("audio.mp3", False) # Play audio
+    audio = "audio.mp3"
+    playsound(audio, False) # Play audio
 
     # Loop through all the frames divided by 5 (6 fps)
-    for loop in range(0, totalFrames, 10):
+    for loop in range(0, totalFrames, 5):
         startTime = time.time() # Start time
         video.set(cv2.CAP_PROP_POS_FRAMES, loop) # Set the loop-th frame of the video
         _, frame = video.read() # Take the frame
@@ -51,5 +52,7 @@ def start(): # Define a functino to start the code
         
     video.release() # Release video (idk why but it seems important)
 
-start() # Run the function 
-os.system("cls") # CLear command line after the function has finished
+while True:
+    start() # Run the function 
+    os.system("cls") # CLear command line after the function has finished
+    time.sleep(3)
