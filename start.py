@@ -28,19 +28,21 @@ def start(): # Define a functino to start the code
         height, width, _ = frame.shape # Get height and with of the frame after resize
 
         string = "" # Declare string to be printed
-        brightness = [" ", ".", ",", ":", ";", "+", "*", "?", "%", "$", "#", "@"] # Set brightness string from black, dark gray, light gray, to white
+        brightness = [" ", ".", ",", ":", ";", "+", "*", "?", "@"] # Set brightness strings from black, dark gray, light gray, to white
 
         # Loop through every row of pixels, divided by 2 to maintain aspect ratio in terminal
         for row in range(0, height, 2):
+
+            # Center the display
             for i in range(46):
                 string += " "
 
             # Loop through every width of pixels
             for col in range(0, width):
                 b, g, r = frame[row, col] # Get pixel information
-                string += brightness[round(int(b + g + r) / 24)] # Calculate how "bright" the pixel is and add a character according to the "brightness" string
+                string += brightness[round(int(b + g + r) / 32)] # Calculate how "bright" the pixel is and add a character according to the "brightness" string
                 if loop <= 40 and row == height // 2 and col == width // 3:
-                    string += "Created by Kalif (https://kalifpermadi.github.io)"
+                    string += "Created by Kalif (https://kalifpermadi.github.io)" # Add watermark lmao
 
             string += "\n" # Add a new line
 
