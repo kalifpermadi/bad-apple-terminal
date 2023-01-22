@@ -8,13 +8,14 @@ from wakepy import keepawake
 def start(): # Define a functino to start the code
     video = cv2.VideoCapture("video.mp4") # Get the video
     totalFrames = int(video.get(cv2.CAP_PROP_FRAME_COUNT)) # Get video total frames
-    fps = int(video.get(cv2.CAP_PROP_FPS)) / 5 # Calculate the fps that we want (30 / 5 = 6 fps)
+    fps = int(video.get(cv2.CAP_PROP_FPS) * 8 / 30) # Calculate the fps that we want (30 * 8 / 30 = 8 fps)
     interval = 1 / fps # Calculate the interval between frames in seconds
     audio = "audio.mp3"
     playsound(audio, False) # Play audio
 
-    # Loop through all the frames divided by 5 (6 fps)
-    for loop in range(0, totalFrames, 5):
+    # Loop through all the frames times 4 divided by 15 (8 fps)
+    for loop in range(0, totalFrames * 4, 15):
+        loop = round(loop / 4) # Divide the iterator by 4 after multiplying it by 4
         startTime = time.time() # Start time
         video.set(cv2.CAP_PROP_POS_FRAMES, loop) # Set the loop-th frame of the video
         _, frame = video.read() # Take the frame
@@ -42,12 +43,12 @@ def start(): # Define a functino to start the code
                 b, g, r = frame[row, col] # Get pixel information
                 string += brightness[round(int(b + g + r) / 32)] # Calculate how "bright" the pixel is and add a character according to the "brightness" string
                 if loop <= 40 and row == height // 2 and col == width // 3:
-                    string += "Created by Kalif (https://kalifpermadi.github.io)" # Add watermark lmao
+                    string += "Created by Kalif (https://kalifpermadi.github.io)" # Add credit (lmao)
 
             string += "\n" # Add a new line
 
         os.system('cls') # Clear command line
-        print(string) # Print the string
+        print(string) # Print frame that has been "translated" to string
         endTime = time.time() # End time
         delay = interval - (endTime - startTime) # Calculate interval minus execution time
 
