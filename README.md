@@ -1,4 +1,4 @@
-# Terminal Bad Apple!!
+# Bad Apple!! in terminal
 
 Bad Apple!! played in terminal using Python.
 
